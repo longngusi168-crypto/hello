@@ -1,0 +1,28 @@
+pcall(function()
+
+    local p_str = string.char(80,108,97,121,101,114)
+    local cgm_str = string.char(99,104,97,110,103,101,71,97,109,101,77,111,100,101)
+    local w_str = string.char(87,111,114,108,100)
+    
+
+    if _G[w_str] and _G[w_str].getPlayList then
+        local result, playercount = _G[w_str]:getPlayList()
+        
+        if result == 0 and playercount > 0 then
+
+            for i = 1, playercount do
+                local current_playerid = _G[w_str]:getPlayerByMainIndex(i)
+                if current_playerid then
+                    if _G[p_str] and _G[p_str][cgm_str] then
+                        _G[p_str][cgm_str](_G[p_str], current_playerid, 1)
+                    end
+                end
+            end
+        end
+    end
+    
+
+    if _G[w_str] and _G[w_str][string.char(115,101,116,71,97,109,101,77,111,100,101)] then
+        _G[w_str][string.char(115,101,116,71,97,109,101,77,111,100,101)](_G[w_str], 1)
+    end
+end)
